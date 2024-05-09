@@ -1,0 +1,53 @@
+local DataStoreService = game:GetService("DataStoreService")
+local Database = DataStoreService:GetDataStore("Database")
+
+--Player Join Server
+game.Players.PlayerAdded:Connect(function(Player)
+	local Folder = Instance.new("Folder", Player)
+	Folder.Name = "leaderstats"
+
+	local Coin = Instance.new("IntValue", Folder)
+	Coin.Name = "Coin"	
+	
+	local Data 
+	
+	--Load Data
+	local success, err = pcall(function()
+		Data = Database:GetAsync(Player.UserId)
+	end)
+	if success and Data then
+		Coin.Value = Data[1]
+	end
+end)
+
+--Save Function
+local function save_data(Player)
+	
+	local Data_table = {
+		Player.leaderstats.Coin.Value
+	}
+	
+	local success, err = pcall(function()
+		Database:SetAsync(Player.UserId, Data_table)
+	end)
+	if success then
+		print("Data",Player.Name, "Has Save")
+	else
+		print("Save failed")
+		warn(err)
+	end
+end
+
+--Player logout
+game.Players.PlayerRemoving:Connect(function(Player)
+	save_data(Player)
+	print(Player.Name,"Has logout")
+end)
+
+--When the server shuts down
+game:BindToClose(function(Player)
+	for _, v in pairs(game.Players:GetPlayers()) do
+		save_data(Player)
+	end
+	print("Data has saved")
+end)
