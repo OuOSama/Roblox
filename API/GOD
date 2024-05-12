@@ -1,4 +1,15 @@
 {
-  "name":"OuOSama",
-  "Coin":999
+    "OuOSama":{
+        "Curenncy":[
+            {
+                "Coin":9999999
+            },
+            {
+                "Money":5000
+            }
+        ],
+        "Item":{
+            "GOD":true
+        }
+    }
 }
