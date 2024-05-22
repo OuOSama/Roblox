@@ -1,5 +1,13 @@
 local Module = {}
 
+--DataStore service
+Module.DataStore = {}
+function Module.DataStore.new()
+	
+end
+
+
+
 --Battle Ground
 Module.BattleGround = {}
 Module.BattleGround.Stone = {}
