@@ -47,4 +47,10 @@ function Module.TowerDefent.test()
 	print('Tower Tower Defense is aleardy')
 end
 
+
+
+
+--Obby
+Module.Obby = {}
+
 return Module
