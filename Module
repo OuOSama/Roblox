@@ -1,19 +1,8 @@
 local Module = {}
 
---DataStore service
-Module.DataStore = {}
-function Module.DataStore.new()
-	
-end
-
-
-
 --Battle Ground
 Module.BattleGround = {}
 Module.BattleGround.Stone = {}
-function Module.BattleGround.test()
-	print('Battle Ground Module is aleardy')
-end
 function Module.BattleGround.Stone.Twin(parent,size,distance,Time,h)
 	local function rocknew(stone_position)
 		local p = Instance.new("Part")
@@ -51,14 +40,20 @@ end
 
 --Tower Defense
 Module.TowerDefent = {}
-function Module.TowerDefent.test()
-	print('Tower Tower Defense is aleardy')
-end
-
-
-
 
 --Obby
 Module.Obby = {}
+
+
+-- Test functions
+local function test(moduleName)
+	print(moduleName .. " module is already loaded.")
+end
+
+Module.BattleGround.test = function() test("Battle Ground") end
+Module.TowerDefent.test  = function() test("Tower Defense") end
+Module.Obby.test = function() test("Obby") end
+
+
 
 return Module
