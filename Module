@@ -1,17 +1,19 @@
-local OuOSama = {}
+local Module = {}
 
-OuOSama.BattleGround = {}
-function OuOSama.BattleGround.test()
+--Battle Ground
+Module.BattleGround = {}
+Module.BattleGround.Stone = {}
+function Module.BattleGround.test()
 	print('Battle Ground Module is aleardy')
 end
-function OuOSama.BattleGround.Rock_Effect(parent,size,distance,Time,h)
-	local function rocknew(khoangcach)
+function Module.BattleGround.Stone.Twin(parent,size,distance,Time,h)
+	local function rocknew(stone_position)
 		local p = Instance.new("Part")
 		game.Debris:AddItem(p,Time + 1)
 		p.Anchored = true
 		p.CanCollide = true
 		p.Position = Vector3.new(0,0,0)
-		p.CFrame = parent.CFrame * CFrame.new(khoangcach,0,0)
+		p.CFrame = parent.CFrame * CFrame.new(stone_position,0,0)
 		p.Orientation = Vector3.new(math.random(-180,180),math.random(-180.,180),math.random(-180,180))
 		local params = RaycastParams.new()
 		params.FilterType = Enum.RaycastFilterType.Exclude
@@ -36,13 +38,13 @@ function OuOSama.BattleGround.Rock_Effect(parent,size,distance,Time,h)
 	end)
 end
 
-function OuOSama.BattleGround.Hitbox()
-	
+
+
+
+--Tower Defense
+Module.TowerDefent = {}
+function Module.TowerDefent.test()
+	print('Tower Tower Defense is aleardy')
 end
 
-OuOSama.TowerDefent = {}
-function OuOSama.TowerDefent.test()
-	print('Tower Defent Module is aleardy')
-end
-
-return OuOSama
+return Module
