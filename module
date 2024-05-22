@@ -1,0 +1,48 @@
+local OuOSama = {}
+
+OuOSama.BattleGround = {}
+function OuOSama.BattleGround.test()
+	print('Battle Ground Module is aleardy')
+end
+function OuOSama.BattleGround.Rock_Effect(parent,size,distance,Time,h)
+	local function rocknew(khoangcach)
+		local p = Instance.new("Part")
+		game.Debris:AddItem(p,Time + 1)
+		p.Anchored = true
+		p.CanCollide = true
+		p.Position = Vector3.new(0,0,0)
+		p.CFrame = parent.CFrame * CFrame.new(khoangcach,0,0)
+		p.Orientation = Vector3.new(math.random(-180,180),math.random(-180.,180),math.random(-180,180))
+		local params = RaycastParams.new()
+		params.FilterType = Enum.RaycastFilterType.Exclude
+		params.IgnoreWater = true
+		local ray = workspace:Raycast(p.Position, Vector3.new(0,-h,0), params)
+		if ray then
+			p.Position = ray.Position
+			p.Parent = workspace.Trash
+			p.Color = ray.Instance.Color
+			p.Material = ray.Material
+			game.TweenService:Create(p,TweenInfo.new(.25),{Size = Vector3.new(size,size,size)}):Play()
+			delay(Time,function()
+				game.TweenService:Create(p,TweenInfo.new(.5),{Size = Vector3.new(0,0,0)}):Play()
+			end)
+		else
+			game.Debris:AddItem(p,0)
+		end
+	end
+	spawn(function()
+		rocknew(distance)
+		rocknew(-distance)
+	end)
+end
+
+function OuOSama.BattleGround.Hitbox()
+	
+end
+
+OuOSama.TowerDefent = {}
+function OuOSama.TowerDefent.test()
+	print('Tower Defent Module is aleardy')
+end
+
+return OuOSama
