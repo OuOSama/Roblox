@@ -3,6 +3,7 @@ local Module = {}
 --Battle Ground
 Module.BattleGround = {}
 Module.BattleGround.Stone = {}
+Module.BattleGround.HitBox = {}
 function Module.BattleGround.Stone.Twin(parent,size,distance,Time,h)
 	local function rocknew(stone_position)
 		local p = Instance.new("Part")
@@ -35,14 +36,53 @@ function Module.BattleGround.Stone.Twin(parent,size,distance,Time,h)
 	end)
 end
 
+function Module.BattleGround.HitBox.new(parent,size)
+
+end
+
+
+
+
+--One Piece
+Module.OnePiece = {}
+Module.OnePiece.Item = {
+	["Fruit"] = {
+		["Flame"] = {
+			["Price"] = 500
+		},
+		["Ice"] = {
+			["Price"] = 10000
+		},
+		["Light"] = {
+			["Price"] = 300000
+		}
+	},
+	["Sword"] = {
+		["Yoru"] = {
+			["Price"] = 1000000
+		},
+		["Katana"] = {
+			["Price"] = 50
+		}
+	}
+}
+function Module.OnePiece.CreateFruit()
+	print(Module.OnePiece.Item.Fruit.Light.Price)
+	print(Module.OnePiece.Item.Sword.Yoru.Price)
+end
 
 
 
 --Tower Defense
 Module.TowerDefent = {}
 
+
+
+
 --Obby
 Module.Obby = {}
+
+
 
 
 -- Test functions
