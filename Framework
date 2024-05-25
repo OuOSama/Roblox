@@ -48,26 +48,26 @@ Module.OnePiece = {}
 Module.OnePiece.Item = {
 	["Fruit"] = {
 		["Flame"] = {
-			["Price"] = 500
+			["Price"] = 100
 		},
 		["Ice"] = {
-			["Price"] = 10000
+			["Price"] = 200
 		},
 		["Light"] = {
-			["Price"] = 300000
+			["Price"] = 300
 		}
 	},
 	["Sword"] = {
 		["Yoru"] = {
-			["Price"] = 1000000
+			["Price"] = 500
 		},
 		["Katana"] = {
-			["Price"] = 50
+			["Price"] = 300
 		}
 	}
 }
 function Module.OnePiece.CreateFruit()
-	print(Module.OnePiece.Item.Fruit.Light.Price)
+	print(Module.OnePiece.Item.Fruit.Flame.Price)
 	print(Module.OnePiece.Item.Sword.Yoru.Price)
 end
 
@@ -93,6 +93,7 @@ end
 Module.BattleGround.test = function() test("Battle Ground") end
 Module.TowerDefent.test  = function() test("Tower Defense") end
 Module.Obby.test = function() test("Obby") end
+Module.OnePiece.test = function() test("One Piece") end
 
 
 
