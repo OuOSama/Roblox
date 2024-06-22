@@ -1,0 +1,81 @@
+local module = {}
+local DataStoreService = game:GetService('DataStoreService')
+local Database = DataStoreService:GetDataStore('Database')
+
+local function setupPlayerData(Player)
+	local Folder = Player:FindFirstChild('Data') or Instance.new('Folder', Player)
+	Folder.Name = 'Data'
+	local leaderstats = Player:FindFirstChild('leaderstats') or Instance.new('Folder', Player)
+	leaderstats.Name = 'leaderstats'
+	local Summon = leaderstats:FindFirstChild('Summon') or Instance.new('IntValue', leaderstats)
+	Summon.Name = 'Summon'
+
+	for _, team in ipairs(game.Teams:GetChildren()) do
+		local value = Folder:FindFirstChild(team.Name) or Instance.new('IntValue', Folder)
+		value.Name = team.Name
+	end
+end
+
+local function updateSummon(Player)
+	local highestValue, highestTeam = 0, nil
+	for _, team in ipairs(game.Teams:GetChildren()) do
+		local teamValue = Player.Data:FindFirstChild(team.Name)
+		if teamValue and teamValue.Value > highestValue then
+			highestValue, highestTeam = teamValue.Value, team.Name
+		end
+	end
+	Player.leaderstats.Summon.Value = highestValue
+end
+
+local function connectTeamValueChanged(Player)
+	for _, team in ipairs(game.Teams:GetChildren()) do
+		local teamValue = Player.Data:FindFirstChild(team.Name)
+		if teamValue then
+			teamValue.Changed:Connect(function() updateSummon(Player) end)
+		end
+	end
+end
+
+function module.load(Player)
+	setupPlayerData(Player)
+	local success, Data = pcall(function() return Database:GetAsync(Player.UserId) end)
+	if success and Data then
+		for i, team in ipairs(game.Teams:GetChildren()) do
+			Player.Data[team.Name].Value = Data[i] or 0
+		end
+	else
+		warn(success and "Data is empty" or Data)
+	end
+	connectTeamValueChanged(Player)
+	updateSummon(Player)
+end
+
+local function save(Player)
+	local Data_Table = {}
+	for _, team in ipairs(game.Teams:GetChildren()) do
+		table.insert(Data_Table, Player.Data[team.Name].Value)
+	end
+	local success, err = pcall(function() Database:SetAsync(Player.UserId, Data_Table) end)
+	if not success then warn(err) end
+end
+
+function module.leave(Player)
+	save(Player)
+end
+
+function module.Shutdown()
+	for _, Player in pairs(game.Players:GetPlayers()) do
+		save(Player)
+	end
+end
+
+function module.getSummon(Player, Team)
+	if not Team or Team.Name == '' then
+		Player.leaderstats.Summon.Value = 0
+	else
+		Player.leaderstats.Summon.Value = Player.Data[Team.Name].Value
+	end
+end
+
+
+return module
